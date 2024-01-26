@@ -13,6 +13,8 @@ BASIC_DISTANCE_CHARGE = 2
 ADDITIONAL_DISTANCE_CHARGE = 1
 BASIC_DISTANCE = 1000
 ADDITIONAL_DISTANCE = 500
+MAX_DELIVERY_FEE = 15
+MIN_DELIVERY_FREE = 200
 
 
 def sur_charge(value):
@@ -25,10 +27,11 @@ def sur_charge(value):
 
 
 def charge_distance(distance):
-    if distance <= BASIC_DISTANCE: return BASIC_DISTANCE_CHARGE
+    if distance <= BASIC_DISTANCE:
+        return BASIC_DISTANCE_CHARGE
     else:
-        extra_charge = int((distance - BASIC_DISTANCE - 1)
-            / ADDITIONAL_DISTANCE + 1) *\
+        extra_charge = int(
+            (distance - BASIC_DISTANCE - 1) / ADDITIONAL_DISTANCE + 1) *\
             ADDITIONAL_DISTANCE_CHARGE
         total_charge = BASIC_DISTANCE_CHARGE + extra_charge
     return total_charge
@@ -42,9 +45,7 @@ def charge_number_of_items(number_of_items):
             total_charge += 1.20
     return total_charge
 
-# * The delivery fee can __never__ be more than 15€, including possible surcharges.
-# * The delivery is free (0€) when the cart value is equal or more than 200€. 
-# * During the Friday rush, 3 - 7 PM, the delivery fee (the total fee including possible surcharges) will be multiplied by 1.2x. However, the fee still cannot be more than the max (15€). Considering timezone, for simplicity, **use UTC as a timezone in backend solutions** (so Friday rush is 3 - 7 PM UTC). **In frontend solutions, use the timezone of the browser** (so Friday rush is 3 - 7 PM in the timezone of the browser).
+
 def friday_rush(order_date):
     rush_charge = 0
     datetime_object = datetime.fromisoformat(order_date)
@@ -54,6 +55,23 @@ def friday_rush(order_date):
         rush_charge = 1.2
     return rush_charge
 
-print(friday_rush(req_input['time']))
 
-        
+def calculate_bill(data):
+    amount = data['cart_value']
+    distance = data['delivery_distance']
+    number_of_items = data['number_of_items']
+    time = data['time']
+    if amount >= MIN_DELIVERY_FREE:
+        delivery_fee = 0
+    else:
+        min_amount_charge = sur_charge(amount)
+        distance_charge = charge_distance(distance)
+        bulk_charge = charge_number_of_items(number_of_items)
+        delivery_fee = (min_amount_charge + distance_charge + bulk_charge) *\
+            friday_rush(time)
+        delivery_fee = min(delivery_fee, MAX_DELIVERY_FEE)
+
+    return amount + delivery_fee
+
+
+print(calculate_bill(req_input))
