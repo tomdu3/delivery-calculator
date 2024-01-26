@@ -1,3 +1,6 @@
+from datetime import datetime, timezone
+
+
 req_input = {
     "cart_value": 790,
     "delivery_distance": 2235,
@@ -31,13 +34,6 @@ def charge_distance(distance):
     return total_charge
 
 
-# * If the number of items is five or more, an additional 50 cent surcharge is added for each item above and including the fifth item. An extra "bulk" fee applies for more than 12 items of 1,20€
-#   * Example 1: If the number of items is 4, no extra surcharge
-#   * Example 2: If the number of items is 5, 50 cents surcharge is added
-#   * Example 3: If the number of items is 10, 3€ surcharge (6 x 50 cents) is added
-#   * Example 4: If the number of items is 13, 5,70€ surcharge is added ((9 * 50 cents) + 1,20€)
-#   * Example 5: If the number of items is 14, 6,20€ surcharge is added ((10 * 50 cents) + 1,20€)
-
 def charge_number_of_items(number_of_items):
     total_charge = 0
     if number_of_items > 4:
@@ -46,5 +42,18 @@ def charge_number_of_items(number_of_items):
             total_charge += 1.20
     return total_charge
 
+# * The delivery fee can __never__ be more than 15€, including possible surcharges.
+# * The delivery is free (0€) when the cart value is equal or more than 200€. 
+# * During the Friday rush, 3 - 7 PM, the delivery fee (the total fee including possible surcharges) will be multiplied by 1.2x. However, the fee still cannot be more than the max (15€). Considering timezone, for simplicity, **use UTC as a timezone in backend solutions** (so Friday rush is 3 - 7 PM UTC). **In frontend solutions, use the timezone of the browser** (so Friday rush is 3 - 7 PM in the timezone of the browser).
+def friday_rush(order_date):
+    rush_charge = 0
+    datetime_object = datetime.fromisoformat(order_date)
+    day = datetime_object.isoweekday()
+    time = datetime_object.hour
+    if day == 5 and 15 <= time <= 19:
+        rush_charge = 1.2
+    return rush_charge
 
+print(friday_rush(req_input['time']))
 
+        
