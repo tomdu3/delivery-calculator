@@ -2,22 +2,22 @@ from datetime import datetime, timezone
 
 
 
-MIN_CART_VALUE = 10
-BASIC_DISTANCE_CHARGE = 2
-ADDITIONAL_DISTANCE_CHARGE = 1
+MIN_CART_VALUE = 1000
+BASIC_DISTANCE_CHARGE = 200
+ADDITIONAL_DISTANCE_CHARGE = 100
 BASIC_DISTANCE = 1000
 ADDITIONAL_DISTANCE = 500
-MAX_DELIVERY_FEE = 15
-MIN_DELIVERY_FREE = 200
+MAX_DELIVERY_FEE = 1500
+MIN_DELIVERY_FREE = 20000
 
 
 def sur_charge(value):
     '''
-    Takes the value of the cart and if it is less than 10
-    returns the surplus charge of the difference to 10,
+    Takes the value of the cart and if it is less than 10Eur
+    returns the surplus charge of the difference to 10Eur,
     otherwise no surplus charge
     '''
-    return 0 if value >= MIN_CART_VALUE else 10 - value
+    return 0 if value >= MIN_CART_VALUE else MIN_CART_VALUE - value
 
 
 def charge_distance(distance):
@@ -41,9 +41,9 @@ def charge_number_of_items(number_of_items):
     '''
     total_charge = 0
     if number_of_items > 4:
-        total_charge += (number_of_items - 4) * .50
+        total_charge += (number_of_items - 4) * 50
         if number_of_items > 12:
-            total_charge += 1.20
+            total_charge += 120
     return total_charge
 
 
@@ -64,10 +64,10 @@ def friday_rush(order_date):
 
 def calculate_bill(data):
     '''
-    Main function. Calculates and returns the total of all the bill charges.
+    Main function. Calculates and returns the total of the delivery fee.
     It waves all charges (delivery and other fees) if the value of the order
     is of 200 or more.
-    It doesn't go over 15 for the sum of delivery and other charges.
+    It doesn't go over 15Eur for the sum of delivery and other charges.
     '''
 
     amount = data['cart_value']
@@ -90,7 +90,7 @@ def calculate_bill(data):
         # not overpassing the alowed fee amount
         delivery_fee = min(delivery_fee, MAX_DELIVERY_FEE)
 
-    return amount + delivery_fee
+    return delivery_fee
 
 
 if __name__ == "__main__":
