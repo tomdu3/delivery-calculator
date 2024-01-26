@@ -1,7 +1,6 @@
 from datetime import datetime, timezone
 
 
-
 MIN_CART_VALUE = 1000
 BASIC_DISTANCE_CHARGE = 200
 ADDITIONAL_DISTANCE_CHARGE = 100
