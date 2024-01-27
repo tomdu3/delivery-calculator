@@ -7,6 +7,9 @@ from .auxiliary import calculator
 
 
 class CalculateDeliveryFeeView(APIView):
+    """
+    View for the calculate delivery Fee API post page
+    """
     serializer_class = DeliveryFeeSerializer
 
     def post(self, request, format=None):

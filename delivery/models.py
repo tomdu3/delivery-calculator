@@ -1,10 +1,11 @@
 from django.db import models
 
-# Create your models here.
-
 
 class Delivery(models.Model):
-
+    """
+    Model for Delivery. Can be used to save the records and for the JSON
+    serializers for the API requests/responses.
+    """
     cart_value = models.IntegerField(null=False)
     delivery_distance = models.IntegerField(null=False)
     number_of_items = models.IntegerField(null=False)

@@ -1,12 +1,7 @@
-from django.urls import path, include
+from django.urls import path
 from . import views
-from rest_framework import routers
 
-# router = routers.DefaultRouter()
-# router.register('deliveries', views.DeliveryView)
-# router.register('calculate_delivery_fee', views.CalculateDeliveryFeeView)
-
+# open the API POST request page on the root path
 urlpatterns = [
-    # path('', include(router.urls)),
-    path('calculate_delivery_fee', views.CalculateDeliveryFeeView.as_view(), name='calculate_delivery_fee'),
+    path('', views.CalculateDeliveryFeeView.as_view(), name='calculate_delivery_fee'),
 ]
