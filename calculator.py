@@ -61,7 +61,7 @@ def friday_rush(order_date):
     return rush_charge
 
 
-def calculate_bill(data):
+def calculate_delivery(data):
     '''
     Main function. Calculates and returns the total of the delivery fee.
     It waves all charges (delivery and other fees) if the value of the order
@@ -104,4 +104,4 @@ if __name__ == "__main__":
         "number_of_items": 4,
         "time": "2024-01-15T13:00:00Z"
     }
-    print(calculate_bill(req_input))
+    print(calculate_delivery(req_input))
