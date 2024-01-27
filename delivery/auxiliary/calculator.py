@@ -61,18 +61,13 @@ def friday_rush(order_date):
     return rush_charge
 
 
-def calculate_delivery(data):
+def calculate_delivery(amount, distance, number_of_items, time):
     '''
     Main function. Calculates and returns the total of the delivery fee.
     It waves all charges (delivery and other fees) if the value of the order
     is of 200 or more.
     It doesn't go over 15Eur for the sum of delivery and other charges.
     '''
-
-    amount = data['cart_value']
-    distance = data['delivery_distance']
-    number_of_items = data['number_of_items']
-    time = data['time']
 
     # if the cart value is greater or equal to the minimal free delivery,
     # there are no extra charges for delivery and other services

@@ -20,12 +20,12 @@ class CalculateDeliveryFeeView(APIView):
             time = serializer.validated_data['time']
 
             try:
-                delivery_fee = calculator.calculate_delivery({
-                    'cart_value': cart_value,
-                    'delivery_distance': delivery_distance,
-                    'number_of_items': number_of_items,
-                    'time': time,
-                })
+                delivery_fee = calculator.calculate_delivery(
+                    cart_value,
+                    delivery_distance,
+                    number_of_items,
+                    time,
+                )
                 return Response(delivery_fee, status=status.HTTP_200_OK)
             except Exception as e:
                 # Handle exceptions from the calculate function
