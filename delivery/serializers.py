@@ -14,3 +14,14 @@ class DeliverySerializer(serializers.ModelSerializer):
             'time',
             'delivery_fee'
         )
+
+
+class DeliveryFeeSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Delivery
+        fields = (
+            'cart_value',
+            'delivery_distance',
+            'number_of_items',
+            'time'
+        )

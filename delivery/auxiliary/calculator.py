@@ -87,9 +87,9 @@ def calculate_delivery(data):
         delivery_fee = (min_amount_charge + distance_charge + bulk_charge) *\
             friday_rush(time)
         # not overpassing the alowed fee amount
-        delivery_fee = min(delivery_fee, MAX_DELIVERY_FEE)
+        delivery_fee = int(min(delivery_fee, MAX_DELIVERY_FEE))
 
-    return delivery_fee
+    return {'delivery_fee': delivery_fee}
 
 
 if __name__ == "__main__":
