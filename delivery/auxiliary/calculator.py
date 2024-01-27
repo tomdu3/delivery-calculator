@@ -103,10 +103,14 @@ if __name__ == "__main__":
     """
 
     # sample input
-    req_input = {
-        "cart_value": 790,
-        "delivery_distance": 2235,
-        "number_of_items": 4,
-        "time": "2024-01-15T13:00:00Z"
-    }
-    print(calculate_delivery(req_input))
+    cart_value = 790
+    delivery_distance = 2235
+    number_of_items = 4
+    time = "2024-01-15T13:00:00Z"
+
+    print(calculate_delivery(
+        cart_value,
+        delivery_distance,
+        number_of_items,
+        time)
+        )
