@@ -1,4 +1,5 @@
 from rest_framework import serializers
+from datetime import datetime
 from .models import Delivery
 
 
@@ -45,5 +46,20 @@ class DeliveryFeeSerializer(serializers.ModelSerializer):
         if value < 1:
             raise serializers.ValidationError(
                 'Number of items must be at least 1'
+            )
+        return value
+
+    def validate_time(self, value):
+        """
+        Validation for the API request input: time. The value must be a proper
+        ISO format string.
+        """
+        try:
+            # Attempt to parse the time string to a datetime object
+            datetime.fromisoformat(value)
+        except ValueError:
+            # If parsing fails, raise a validation error
+            raise serializers.ValidationError(
+                'Time must be a valid ISO format string'
             )
         return value
