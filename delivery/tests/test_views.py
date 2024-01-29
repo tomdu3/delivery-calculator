@@ -1,7 +1,12 @@
 from rest_framework.test import APITestCase, APIClient
 from rest_framework import status
 
+
 class CalculateDeliveryFeeViewTestCase(APITestCase):
+    """
+    Test case for the CalculateDeliveryFeeView
+    """
+
     def setUp(self):
         self.client = APIClient()
 
@@ -45,4 +50,5 @@ class CalculateDeliveryFeeViewTestCase(APITestCase):
         }
         response = self.client.post('/', invalid_data, format='json')
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
-        self.assertIn('cart_value', response.json())  # Check for cart_value in response errors
+        # Check for cart_value in response errors
+        self.assertIn('cart_value', response.json())
