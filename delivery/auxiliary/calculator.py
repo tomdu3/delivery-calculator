@@ -72,7 +72,7 @@ def friday_rush(order_date):
 
 
 def calculate_delivery(amount, distance, number_of_items, time):
-    """   
+    """
     Main function. Calculates and returns the total of the delivery fee.
     It waves all charges (delivery and other fees) if the value of the order
     is of 200 or more.
@@ -98,9 +98,7 @@ def calculate_delivery(amount, distance, number_of_items, time):
 
 
 if __name__ == "__main__":
-    """
-    It runs only if the script is run directly and not imported as a module
-    """
+    # function call runs directly when the script is not imported as a module
 
     # sample input
     cart_value = 790
