@@ -163,7 +163,7 @@ In the terminal:
 `python manage.py runserver`
 
 ###  3.2. <a name='api-functionality'></a>API functionality
-A default web interface loads when the server is running and can be accessed on http://localhost:8000/ in the browser (or in a API test software like Postman).
+A default web interface loads when the server is running and can be accessed on http://localhost:8000/ in the browser (or in am API test software like Postman).
 The allowed method is POST and the input data can be given through a form or as a raw JSON data structure. By clicking on the button POST the request is made and the calculated result is given.
 
 <details>
@@ -177,19 +177,20 @@ The allowed method is POST and the input data can be given through a form or as 
 ---
 ###  3.3. <a name='technologies-used'></a>Technologies Used
 
-- Programming Languages, Frameworks, Libraries
-  - Python 3.12.1
-  - Django 5.0.1
-  - Django Rest Framework 3.14.0
+- *Programming Languages, Frameworks, Libraries*
+  - Python: Version 3.12.1
+  - Django: Version 5.0.1
+  - Django Rest Framework: Version 3.14.0
 
-- Applications and Other Services
-  - Git - version control
-  - Visual Studio Code - code editing (md)
-  - NeoVim - code editing
-  - Command Terminal (Zsh)
-  - tmuxifier/tmux - for terminal tiling
-  - Mozilla Firefox - for manual testing
-
+- *Applications and Other Services*
+  - Git: Version control
+  - Visual Studio Code: Code editing (Markdown)
+  - NeoVim: Code editing
+  - Command Terminal (Zsh): Shell environment
+  - Tmuxifier/Tmux: Terminal tiling
+  - Mozilla Firefox: Manual testing
+  - PyPeek: Screencasting
+  - Postman: API testing
 
 ###  3.4. <a name='django-app-structure'></a>Django App Structure
 
@@ -317,7 +318,26 @@ Destroying test database for alias 'default'...
 ```
 All tests passed successfully.
 ###  4.2. <a name='manual-testing'></a>Manual Testing
+Server Address: [localhost:8000](http://localhost:8000/)
+- Valid Data sample inputs in JSON format:
+- Sample 1:
+```json
+{"cart_value": 790, "delivery_distance": 2235,"number_of_items": 4, "time": "2024-01-15T13:00:00Z"}
+```
 
+- Expected Output:
+```json
+{"delivery_fee": 710} 
+```
+
+- Sample 2:
+```json
+{"cart_value": 20, "delivery_distance": 900, "number_of_items": 1, "time": "2021-01-21T13:00:00Z"}
+```
+- Expected Output:
+```json
+{"delivery_fee": 200} 
+```
 Manual tests are performed on Django Rest Framework interface in a browser:
 
 <details>
