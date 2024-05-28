@@ -4,7 +4,6 @@ Main calculating app added as an auxiliary code to the django project
 
 from datetime import datetime, timezone
 
-
 MIN_CART_VALUE = 1000  # 10€
 BASIC_DISTANCE_CHARGE = 200  # 2€
 ADDITIONAL_DISTANCE_CHARGE = 100  # 1€
@@ -20,6 +19,7 @@ def sur_charge(value):
     returns the surplus charge of the difference to 10Eur,
     otherwise no surplus charge
     """
+
     return 0 if value >= MIN_CART_VALUE else MIN_CART_VALUE - value
 
 
@@ -32,18 +32,19 @@ def charge_distance(distance):
         return BASIC_DISTANCE_CHARGE
     else:
         # adds extra charge for every additional distance unit treshold
-        extra_charge = int(
-            (distance - BASIC_DISTANCE - 1) / ADDITIONAL_DISTANCE + 1) *\
-            ADDITIONAL_DISTANCE_CHARGE
+        extra_charge = (
+            int((distance - BASIC_DISTANCE - 1) / ADDITIONAL_DISTANCE + 1)
+            * ADDITIONAL_DISTANCE_CHARGE
+        )
         total_charge = BASIC_DISTANCE_CHARGE + extra_charge
     return total_charge
 
 
 def charge_number_of_items(number_of_items):
-    '''
+    """
     Calculates and returns the charges depending on the number of items:
     Under minimum number, bulk, ...
-    '''
+    """
     total_charge = 0
     if number_of_items > 4:
         # adds aditional charge for every item over basic 4
@@ -89,12 +90,13 @@ def calculate_delivery(amount, distance, number_of_items, time):
         distance_charge = charge_distance(distance)
         bulk_charge = charge_number_of_items(number_of_items)
         # total of the fees
-        delivery_fee = (min_amount_charge + distance_charge + bulk_charge) *\
-            friday_rush(time)
+        delivery_fee = (
+            min_amount_charge + distance_charge + bulk_charge
+        ) * friday_rush(time)
         # not overpassing the alowed fee amount
         delivery_fee = int(min(delivery_fee, MAX_DELIVERY_FEE))
 
-    return {'delivery_fee': delivery_fee}
+    return {"delivery_fee": delivery_fee}
 
 
 if __name__ == "__main__":
@@ -106,9 +108,19 @@ if __name__ == "__main__":
     number_of_items = 4
     time = "2024-01-15T13:00:00Z"
 
-    print(calculate_delivery(
-        cart_value,
-        delivery_distance,
-        number_of_items,
-        time)
+    print(calculate_delivery(cart_value, delivery_distance, number_of_items, time))
+
+    input_data = {
+        "cart_value": 2000,
+        "delivery_distance": 900,
+        "number_of_items": 1,
+        "time": "2021-10-21T13:00:00Z",
+    }
+    print(
+        calculate_delivery(
+            amount=input_data["cart_value"],
+            distance=input_data["delivery_distance"],
+            number_of_items=input_data["number_of_items"],
+            time=input_data["time"],
         )
+    )
